@@ -1,6 +1,6 @@
 import React from "react";
 import {Text, TouchableOpacity, StyleSheet} from "react-native";
-import {AppColors, AppFonts} from "../theme/AppTheme";
+import {AppColors, AppFonts} from "../../theme/AppTheme";
 
 interface Props{
     onPress: () => void,
@@ -14,7 +14,7 @@ const colorMap: { [key: string]: string } = {
     arcanas: AppColors.btnArcana,
 };
 
-export const ButtomFilter = ({text, onPress}: Props) => {
+export const ButtonFilter = ({text, onPress}: Props) => {
     const normalize = (str: string) => str.toLowerCase().replace(/\s+/g, '');
     const backgroundColor = colorMap[normalize(text)] || AppColors.primary;
 

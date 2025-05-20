@@ -11,6 +11,7 @@ import SocialLinksView from "./app/presentation/views/social-links/SocialLinksVi
 import ArcanasView from "./app/presentation/views/arcanas/ArcanasView";
 import DetailPersona from "./app/presentation/views/detail-persona/DetailPersona";
 import DetailSocialLink from "./app/presentation/views/detail-social-links/DetailSocialLink";
+import StoryBossesView from "./app/presentation/views/story-bosses/StoryBossesView";
 
 const Stack = createNativeStackNavigator<RootStackParamlist>();
 
@@ -21,6 +22,7 @@ export type RootStackParamlist = {
   ArcanasView: undefined,
   DetailPersona: undefined,
   DetailSocialLink: undefined,
+  StoryBossesView: undefined,
 }
 
 export default function App() {
@@ -45,6 +47,7 @@ export default function App() {
             <Stack.Screen name={"ArcanasView"} component={ArcanasView} />
             <Stack.Screen name={"DetailPersona"} component={DetailPersona} />
             <Stack.Screen name={"DetailSocialLink"} component={DetailSocialLink} />
+            <Stack.Screen name={"StoryBossesView"} component={StoryBossesView} />
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaProvider>

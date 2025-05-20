@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Text, View, Image, TouchableOpacity} from "react-native";
-import {ButtomFilter} from "../../components/ButtomFilter";
+import {ButtonFilter} from "../../components/buttons/ButtonFilter";
 import {styles} from "./StylesHome";
 import {CardCharacter} from "../../components/home/CardCharacter";
 import {PropsStackNavigation} from "../../interfaces/StackNav";
@@ -12,10 +12,10 @@ const Home = ({ navigation }: PropsStackNavigation) => {
                 <Image source={require('../../../../assets/gekkoukan_high_school_emblem.jpg')} style={styles.logo}/>
             </View>
             <View style={styles.buttonContainer}>
-                <ButtomFilter onPress={()=>{navigation.navigate('PersonasView')}} text={"Personas"}/>
-                <ButtomFilter onPress={()=>{navigation.navigate('SocialLinksView')}} text={"Social Links"}/>
-                <ButtomFilter onPress={()=>{}} text={"Tartarus"}/>
-                <ButtomFilter onPress={()=>{navigation.navigate('ArcanasView')}} text={"Arcanas"}/>
+                <ButtonFilter onPress={()=>{navigation.navigate('PersonasView')}} text={"Personas"}/>
+                <ButtonFilter onPress={()=>{navigation.navigate('SocialLinksView')}} text={"Social Links"}/>
+                <ButtonFilter onPress={()=>{}} text={"Tartarus"}/>
+                <ButtonFilter onPress={()=>{navigation.navigate('ArcanasView')}} text={"Arcanas"}/>
             </View>
             <View style={styles.charactersContainer}>
                 <Text style={styles.textCharacters}>Main characters</Text>
