@@ -16,7 +16,7 @@ const PersonasView = ({navigation}: PropsStackNavigation) => {
 
             </View>
             <View style={styles.containerPersonas}>
-                <TouchableOpacity onPress={() => {}}>
+                <TouchableOpacity onPress={() => {navigation.navigate("DetailPersona")}}>
                     <CardPersona name={"Jack Frost"} arcana={"Magician"} imagePersona={require('../../../../assets/jackfrost.png')}/>
                 </TouchableOpacity>
             </View>

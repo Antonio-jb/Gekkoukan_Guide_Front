@@ -9,6 +9,8 @@ import {SafeAreaProvider} from "react-native-safe-area-context";
 import PersonasView from "./app/presentation/views/personas/PersonasView";
 import SocialLinksView from "./app/presentation/views/social-links/SocialLinksView";
 import ArcanasView from "./app/presentation/views/arcanas/ArcanasView";
+import DetailPersona from "./app/presentation/views/detail-persona/DetailPersona";
+import DetailSocialLink from "./app/presentation/views/detail-social-links/DetailSocialLink";
 
 const Stack = createNativeStackNavigator<RootStackParamlist>();
 
@@ -17,6 +19,8 @@ export type RootStackParamlist = {
   PersonasView: undefined,
   SocialLinksView: undefined,
   ArcanasView: undefined,
+  DetailPersona: undefined,
+  DetailSocialLink: undefined,
 }
 
 export default function App() {
@@ -39,6 +43,8 @@ export default function App() {
             <Stack.Screen name={"PersonasView"} component={PersonasView} />
             <Stack.Screen name={"SocialLinksView"} component={SocialLinksView} />
             <Stack.Screen name={"ArcanasView"} component={ArcanasView} />
+            <Stack.Screen name={"DetailPersona"} component={DetailPersona} />
+            <Stack.Screen name={"DetailSocialLink"} component={DetailSocialLink} />
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaProvider>

@@ -29,5 +29,28 @@ export const styles = StyleSheet.create({
     },
     containerPersonas:{
         marginVertical: 35,
+    },
+    containerInfoPersona:{
+        width: '100%',
+        gap: 25,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginVertical: 25
+    },
+    imagePersona:{
+        width: 160,
+        height: 160,
+        resizeMode: 'contain'
+    },
+    descriptionPersona:{
+        fontSize: 14,
+        color: AppColors.textColor,
+        fontFamily: AppFonts.regular
+    },
+    containerTabView:{
+        width: '100%',
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 })

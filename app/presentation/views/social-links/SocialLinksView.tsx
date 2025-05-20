@@ -16,7 +16,7 @@ const SocialLinksView = ({navigation}: PropsStackNavigation) => {
                 <View style={{ width: 24 }} />
             </View>
             <View style={styles.containerSocialLinks}>
-                <TouchableOpacity onPress={() => {}}>
+                <TouchableOpacity onPress={() => {navigation.navigate("DetailSocialLink")}}>
                     <CardSocialLink name={"Aigis"} imageSocialLink={require('../../../../assets/aigis.png')}/>
                 </TouchableOpacity>
             </View>

@@ -6,7 +6,7 @@ export const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         flex: 1,
-        paddingVertical: 40,
+        paddingVertical: 30,
         paddingHorizontal: 30,
         backgroundColor: AppColors.backgroundPrimary
     },
