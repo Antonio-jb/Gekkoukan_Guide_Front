@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     textPersona:{
         fontFamily: AppFonts.regular,
         color: AppColors.textColor,
-        fontSize: 14,
+        fontSize: 13.5,
     },
     textCharacter:{
         fontFamily: AppFonts.regular,
