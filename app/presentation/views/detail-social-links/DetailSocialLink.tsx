@@ -1,10 +1,10 @@
-import React, {useEffect} from 'react';
-import {Text, View, Image, TouchableOpacity, Animated} from "react-native";
-import {styles} from "./StylesDetailSocialLinks";
+import React, { useEffect } from 'react';
+import { Text, View, Image, TouchableOpacity, Animated, ActivityIndicator } from "react-native";
+import { styles } from "./StylesDetailSocialLinks";
 import ScrollView = Animated.ScrollView;
-import {useNavigation, useRoute} from "@react-navigation/native";
-import {DetailSocialLinkViewModel} from "./ViewModel";
-import {RootStackParamlist} from "../../../../App";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { DetailSocialLinkViewModel } from "./ViewModel";
+import { RootStackParamlist } from "../../../../App";
 import { StackScreenProps } from '@react-navigation/stack';
 
 type Props = StackScreenProps<RootStackParamlist, 'DetailSocialLink'>;
@@ -14,13 +14,19 @@ const DetailSocialLink = () => {
     const navigation = useNavigation();
     const { id } = route.params as { id: number };
 
-    const { socialLinks, getDetailSocialLinks } = DetailSocialLinkViewModel();
+    const { socialLinks, getDetailSocialLinks, loading } = DetailSocialLinkViewModel();
 
     useEffect(() => {
         getDetailSocialLinks(id);
     }, []);
 
-    if (!socialLinks) return null;
+    if (loading || !socialLinks) {
+        return (
+            <View style={[styles.container, { justifyContent: 'center', alignItems: 'center' }]}>
+                <ActivityIndicator size="large" color="#ffffff" />
+            </View>
+        );
+    }
 
     return (
         <ScrollView style={styles.container}>
@@ -41,10 +47,10 @@ const DetailSocialLink = () => {
 
             <View style={styles.containerRanks}>
                 <Text style={styles.titleRank}>Ranks</Text>
-                {socialLinks.ranks.map((rank, index) => (
+                {socialLinks.ranks.map((rank) => (
                     <View key={rank.id}>
                         <Text style={styles.subtitleRank}>Rank {rank.level}:</Text>
-                        {rank.opciones.map((opcion, i) => (
+                        {rank.opciones.map((opcion) => (
                             <View style={styles.containerRank} key={opcion.id}>
                                 <Image source={require('../../../../assets/item.png')} style={styles.iconItem} />
                                 <Text style={styles.descriptionRank}>{opcion.text}</Text>
@@ -54,7 +60,7 @@ const DetailSocialLink = () => {
                 ))}
             </View>
         </ScrollView>
-    )
-}
+    );
+};
 
 export default DetailSocialLink;

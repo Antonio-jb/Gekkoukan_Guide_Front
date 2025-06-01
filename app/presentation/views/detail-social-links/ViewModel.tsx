@@ -4,18 +4,23 @@ import {getDetailSocialLinkUseCase} from "../../../domain/useCases/social-links/
 
 export const DetailSocialLinkViewModel = () => {
     const [socialLinks, setSocialLinks] = useState<SocialLinkInterface | null>(null);
+    const [loading, setLoading] = useState<boolean>(false);
 
     const getDetailSocialLinks = async (id: number) => {
-        try{
+        setLoading(true);
+        try {
             const response = await getDetailSocialLinkUseCase(id);
             setSocialLinks(response);
         } catch (error) {
-            console.error("Error mostrando los social links: ", error)
+            console.error("Error mostrando los social links: ", error);
+        } finally {
+            setLoading(false);
         }
-    }
+    };
 
-    return{
+    return {
         socialLinks,
-        getDetailSocialLinks
-    }
+        loading,
+        getDetailSocialLinks,
+    };
 }

@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {Text, View, Image, TouchableOpacity, FlatList} from "react-native";
+import {Text, View, Image, TouchableOpacity, FlatList, ActivityIndicator} from "react-native";
 import {PropsStackNavigation} from "../../interfaces/StackNav";
 import {styles} from "./StylesSocialLinks";
 import {SocialLinkViewModel} from "./ViewModel";
@@ -7,9 +7,9 @@ import {SocialLinkInterface} from "../../../domain/entities/SocialLink";
 import {RenderSocialLinks} from "./RenderSocialLinks";
 
 const SocialLinksView = ({navigation}: PropsStackNavigation) => {
-    const {socialLinks, getSocialLinks} = SocialLinkViewModel();
+    const {socialLinks, getSocialLinks, loading} = SocialLinkViewModel();
 
-    useEffect(()=>{
+    useEffect(() => {
         getSocialLinks();
     }, []);
 
@@ -23,20 +23,24 @@ const SocialLinksView = ({navigation}: PropsStackNavigation) => {
                 <View style={{ width: 24 }} />
             </View>
             <View style={styles.containerSocialLinks}>
-                <FlatList
-                    data={socialLinks}
-                    renderItem={({item}: {item: SocialLinkInterface}) => (
-                        <RenderSocialLinks item={item} navigation={navigation}/>
-                    )}
-                    keyExtractor={(item) => item.id.toString()}
-                    initialNumToRender={10}
-                    windowSize={10}
-                    ListFooterComponent={
-                        <View style={{ paddingVertical: 10 }}>
-                            <Text style={{ textAlign: 'center', color: 'white' }}>no hay más elementos</Text>
-                        </View>
-                    }
-                />
+                {loading ? (
+                    <ActivityIndicator size="large" color="#ffffff" style={{ marginTop: 20 }} />
+                ) : (
+                    <FlatList
+                        data={socialLinks}
+                        renderItem={({item}: {item: SocialLinkInterface}) => (
+                            <RenderSocialLinks item={item} navigation={navigation}/>
+                        )}
+                        keyExtractor={(item) => item.id.toString()}
+                        initialNumToRender={10}
+                        windowSize={10}
+                        ListFooterComponent={
+                            <View style={{ paddingVertical: 10 }}>
+                                <Text style={{ textAlign: 'center', color: 'white' }}>No hay más elementos</Text>
+                            </View>
+                        }
+                    />
+                )}
             </View>
         </View>
     )

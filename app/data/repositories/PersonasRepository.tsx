@@ -1,12 +1,12 @@
 import {ApiDelivery} from "../sources/remote/api/ApiDelivery";
 import {AxiosError} from "axios";
-import {SocialLinksRepository} from "../../domain/repositories/SocialLinksRepository";
-import {SocialLinkInterface} from "../../domain/entities/SocialLink";
+import {PersonasRepository} from "../../domain/repositories/PersonasRepository";
+import {PersonasInterface} from "../../domain/entities/Personas";
 
-export class SocialLinksRepositoryImpl implements SocialLinksRepository{
-    async getSocialLinks(): Promise<SocialLinkInterface[]> {
+export class PersonasRepositoryImpl implements PersonasRepository{
+    async getPersonas(): Promise<PersonasInterface[]> {
         try{
-            const response = await ApiDelivery.get('/social-link/');
+            const response = await ApiDelivery.get('/personas/');
             return Promise.resolve(response.data);
         } catch (error) {
             let e = (error as AxiosError);
@@ -15,9 +15,9 @@ export class SocialLinksRepositoryImpl implements SocialLinksRepository{
         }
     }
 
-    async getDetailSocialLink(id: number): Promise<SocialLinkInterface> {
+    async getDetailPersona(external_id: number): Promise<PersonasInterface> {
         try{
-            const response = await ApiDelivery.get(`/social-link/${id}/`)
+            const response = await ApiDelivery.get(`/persona/${external_id}/`)
             return Promise.resolve(response.data)
         }catch (error){
             let e = (error as AxiosError)

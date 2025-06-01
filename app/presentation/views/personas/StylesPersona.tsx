@@ -28,6 +28,6 @@ export const styles = StyleSheet.create({
         height: 24,
     },
     containerPersonas:{
-        marginVertical: 35,
+        marginVertical: 20,
     }
 })
