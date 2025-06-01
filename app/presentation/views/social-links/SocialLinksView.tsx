@@ -1,11 +1,18 @@
-import React from 'react';
-import {Text, View, Image, TouchableOpacity} from "react-native";
-import {CardPersona} from "../../components/persona/CardPersona";
+import React, {useEffect} from 'react';
+import {Text, View, Image, TouchableOpacity, FlatList} from "react-native";
 import {PropsStackNavigation} from "../../interfaces/StackNav";
 import {styles} from "./StylesSocialLinks";
-import {CardSocialLink} from "../../components/social-link/CardSocialLink";
+import {SocialLinkViewModel} from "./ViewModel";
+import {SocialLinkInterface} from "../../../domain/entities/SocialLink";
+import {RenderSocialLinks} from "./RenderSocialLinks";
 
 const SocialLinksView = ({navigation}: PropsStackNavigation) => {
+    const {socialLinks, getSocialLinks} = SocialLinkViewModel();
+
+    useEffect(()=>{
+        getSocialLinks();
+    }, []);
+
     return (
         <View style={styles.container}>
             <View style={styles.headerRow}>
@@ -16,9 +23,20 @@ const SocialLinksView = ({navigation}: PropsStackNavigation) => {
                 <View style={{ width: 24 }} />
             </View>
             <View style={styles.containerSocialLinks}>
-                <TouchableOpacity onPress={() => {navigation.navigate("DetailSocialLink")}}>
-                    <CardSocialLink name={"Aigis"} imageSocialLink={require('../../../../assets/aigis.png')}/>
-                </TouchableOpacity>
+                <FlatList
+                    data={socialLinks}
+                    renderItem={({item}: {item: SocialLinkInterface}) => (
+                        <RenderSocialLinks item={item} navigation={navigation}/>
+                    )}
+                    keyExtractor={(item) => item.id.toString()}
+                    initialNumToRender={10}
+                    windowSize={10}
+                    ListFooterComponent={
+                        <View style={{ paddingVertical: 10 }}>
+                            <Text style={{ textAlign: 'center', color: 'white' }}>no hay más elementos</Text>
+                        </View>
+                    }
+                />
             </View>
         </View>
     )

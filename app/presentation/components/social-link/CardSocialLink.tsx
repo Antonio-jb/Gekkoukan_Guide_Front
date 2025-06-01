@@ -5,13 +5,18 @@ import {AppColors, AppFonts} from "../../theme/AppTheme";
 interface Props{
     name: string,
     imageSocialLink: any,
+    arcana: any,
 }
 
-export const CardSocialLink = ({name, imageSocialLink}: Props) => {
+export const CardSocialLink = ({name, imageSocialLink, arcana}: Props) => {
     return (
         <View style={styles.container}>
             <View style={styles.containerInfo}>
                 <Text style={styles.nameCharacter}>{name}</Text>
+                <View style={styles.containerArcanaName}>
+                    <Image source={require('../../../../assets/arcanas-logo.png')} style={styles.icon}/>
+                    <Text style={styles.nameCharacter}>{arcana}</Text>
+                </View>
             </View>
             <Image source={imageSocialLink} style={styles.imageCharacter}/>
         </View>
@@ -30,6 +35,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         position: 'relative',
+        marginVertical: 15
     },
     containerInfo:{
         justifyContent: 'center',
@@ -44,21 +50,7 @@ const styles = StyleSheet.create({
     nameCharacter:{
         fontFamily: AppFonts.semiBold,
         color: AppColors.textColor,
-        fontSize: 15,
-    },
-    containerPersonaInfo:{
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    textPersona:{
-        fontFamily: AppFonts.regular,
-        color: AppColors.textColor,
         fontSize: 14,
-    },
-    textCharacter:{
-        fontFamily: AppFonts.regular,
-        color: AppColors.textColor,
-        fontSize: 12,
     },
     imageContainer: {
         justifyContent: 'flex-end',
@@ -66,9 +58,19 @@ const styles = StyleSheet.create({
     imageCharacter: {
         position: 'absolute',
         bottom: 1,
-        right: 10,
+        right: 17,
         width: 120,
         height: 120,
         resizeMode: 'contain',
     },
+    containerArcanaName:{
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    icon: {
+        width: 30,
+        height: 30,
+        resizeMode: 'contain',
+        marginRight: 5
+    }
 })

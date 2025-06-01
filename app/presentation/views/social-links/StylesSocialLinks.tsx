@@ -28,7 +28,7 @@ export const styles = StyleSheet.create({
         height: 24,
     },
     containerSocialLinks:{
-        marginVertical: 35,
+        marginVertical: 20,
         gap: 25
     }
 })

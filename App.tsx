@@ -23,7 +23,7 @@ export type RootStackParamlist = {
   SocialLinksView: undefined,
   ArcanasView: undefined,
   DetailPersona: undefined,
-  DetailSocialLink: undefined,
+  DetailSocialLink: { id: number },
   Tartarus: undefined,
   DetailMainCharacter: undefined,
   StoryBossesView: undefined,

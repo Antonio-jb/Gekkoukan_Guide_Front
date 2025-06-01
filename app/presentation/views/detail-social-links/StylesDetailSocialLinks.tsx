@@ -37,8 +37,8 @@ export const styles = StyleSheet.create({
         marginVertical: 25
     },
     imageSocialLink:{
-        width: 280,
-        height: 280,
+        width: 200,
+        height: 200,
         resizeMode: 'contain'
     },
     descriptionSocialLink:{
@@ -68,6 +68,7 @@ export const styles = StyleSheet.create({
         fontSize: 13,
         color: AppColors.textColor,
         fontFamily: AppFonts.regular,
+        marginVertical: 5
     },
     containerRank:{
         width: '100%',
