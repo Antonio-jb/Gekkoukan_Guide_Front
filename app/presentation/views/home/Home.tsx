@@ -67,9 +67,9 @@ const Home = ({ navigation }: PropsStackNavigation) => {
                     <TouchableOpacity onPress={() => setModalVisible(true)}
                                       style={{width: '100%', marginVertical: 10}}>
                         <CardCharacter
-                            name={"Fukka Yamagishi"}
+                            name={"Fuuka Yamagishi"}
                             persona={"Lucia"}
-                            imageCharacter={require('../../../../assets/Fukka.png')}
+                            imageCharacter={require('../../../../assets/Fuuka.png')}
                         />
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => setModalVisible(true)}
