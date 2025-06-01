@@ -1,17 +1,18 @@
 import React from 'react';
-import {Alert, Image, Modal, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Image, Modal, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 import { Dispatch, SetStateAction } from 'react';
-import {AppColors, AppFonts} from "../../theme/AppTheme";
+import { AppColors, AppFonts } from "../../theme/AppTheme";
 
 interface ModalCharacterProps {
     modalVisible: boolean;
     setModalVisible: Dispatch<SetStateAction<boolean>>;
     image: any;
     descriptionCharacter: string;
+    name: string;
 }
 
-export const ModalCharacter = ({ modalVisible, setModalVisible, image, descriptionCharacter }: ModalCharacterProps) => {
+export const ModalCharacter = ({modalVisible, setModalVisible, image, descriptionCharacter, name}: ModalCharacterProps) => {
     return (
         <SafeAreaProvider>
             <SafeAreaView style={styles.centeredView}>
@@ -20,16 +21,18 @@ export const ModalCharacter = ({ modalVisible, setModalVisible, image, descripti
                     transparent={true}
                     visible={modalVisible}
                     onRequestClose={() => setModalVisible(false)}
-                    >
+                >
                     <View style={styles.centeredView}>
                         <View style={styles.modalView}>
-                            <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around'}}>
-                                <Image source={image} style={styles.image}/>
+                            <View style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'space-around' }}>
+                                <Text style={styles.titleText}>{name}</Text>
+                                <Image source={image} style={styles.image} />
                             </View>
                             <Text style={styles.modalText}>{descriptionCharacter}</Text>
                             <TouchableOpacity
                                 style={[styles.button, styles.buttonClose]}
-                                onPress={() => setModalVisible(!modalVisible)}>
+                                onPress={() => setModalVisible(false)}
+                            >
                                 <Text style={styles.textStyle}>X</Text>
                             </TouchableOpacity>
                         </View>
@@ -87,7 +90,7 @@ const styles = StyleSheet.create({
         fontSize: 17,
         textAlign: 'center',
         fontFamily: AppFonts.bold,
-        marginBottom: 4,
+        marginBottom: 10,
         color: AppColors.textColor,
     },
     image: {
@@ -96,4 +99,3 @@ const styles = StyleSheet.create({
         resizeMode: "contain",
     },
 });
-

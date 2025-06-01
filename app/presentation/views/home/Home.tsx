@@ -1,122 +1,93 @@
-import React, {useState} from 'react';
-import {Text, View, Image, TouchableOpacity, ScrollView} from "react-native";
-import {ButtonFilter} from "../../components/buttons/ButtonFilter";
-import {styles} from "./StylesHome";
-import {CardCharacter} from "../../components/home/CardCharacter";
-import {PropsStackNavigation} from "../../interfaces/StackNav";
-import {ModalCharacter} from "../../components/modal/ModalCharacter";
-import {ModalArcana} from "../../components/modal/ModalArcana";
+import React, {useEffect, useState} from 'react';
+import {Text, View, Image, TouchableOpacity, FlatList, Dimensions, useWindowDimensions} from "react-native";
+import { ButtonFilter } from "../../components/buttons/ButtonFilter";
+import { styles } from "./StylesHome";
+import { CardCharacter } from "../../components/home/CardCharacter";
+import { PropsStackNavigation } from "../../interfaces/StackNav";
+import { ModalCharacter } from "../../components/modal/ModalCharacter";
+import { CharacterInterface } from "../../../domain/entities/Characters";
+import {useCharacterViewModel} from "./ViewModel";
 
 const Home = ({ navigation }: PropsStackNavigation) => {
     const [modalVisible, setModalVisible] = useState(false);
+    const [selectedCharacter, setSelectedCharacter] = useState<CharacterInterface | null>(null);
+    const { characters, getCharacters } = useCharacterViewModel();
+    const { height } = useWindowDimensions();
+
+    const openCharacterModal = (character: CharacterInterface) => {
+        setSelectedCharacter(character);
+        setModalVisible(true);
+    };
+
+    useEffect(() => {
+        getCharacters();
+    }, []);
+
 
     return (
         <View style={styles.container}>
             <View style={styles.logoContainer}>
-                <Image source={require('../../../../assets/gekkoukan_high_school_emblem.jpg')} style={styles.logo}/>
+                <Image source={require('../../../../assets/gekkoukan_high_school_emblem.jpg')} style={styles.logo} />
             </View>
+
             <View style={styles.buttonContainer}>
-                <ButtonFilter onPress={()=>{navigation.navigate('PersonasView')}} text={"Personas"}/>
-                <ButtonFilter onPress={()=>{navigation.navigate('SocialLinksView')}} text={"Social Links"}/>
-                <ButtonFilter onPress={()=>{navigation.navigate('Tartarus')}} text={"Tartarus"}/>
-                <ButtonFilter onPress={()=>{navigation.navigate('ArcanasView')}} text={"Arcanas"}/>
+                <ButtonFilter onPress={() => navigation.navigate('PersonasView')} text={"Personas"} />
+                <ButtonFilter onPress={() => navigation.navigate('SocialLinksView')} text={"Social Links"} />
+                <ButtonFilter onPress={() => navigation.navigate('Tartarus')} text={"Tartarus"} />
+                <ButtonFilter onPress={() => navigation.navigate('ArcanasView')} text={"Arcanas"} />
             </View>
+
             <View style={styles.charactersContainer}>
                 <Text style={styles.textCharacters}>Main characters</Text>
-                <ScrollView style={{width: "100%", height: "59%",}}>
-                    <TouchableOpacity onPress={() =>{navigation.navigate('DetailMainCharacter')}}
-                                      style={{width: '100%', marginBottom: 10}}>
-                        <CardCharacter
-                            name={"Makoto Yuki"}
-                            persona={"Orpheus"}
-                            imageCharacter={require('../../../../assets/yuki2.png')}
-                        />
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => setModalVisible(true)}
-                                      style={{width: '100%', marginVertical: 10}}>
-                        <CardCharacter
-                            name={"Yukari Takeba"}
-                            persona={"Io"}
-                            imageCharacter={require('../../../../assets/Yukari.png')}
-                        />
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => setModalVisible(true)}
-                                      style={{width: '100%', marginVertical: 10}}>
-                        <CardCharacter
-                            name={"Junpei Iori"}
-                            persona={"Hermes"}
-                            imageCharacter={require('../../../../assets/Junpei-Iori.png')}
-                        />
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => setModalVisible(true)}
-                                      style={{width: '100%', marginVertical: 10}}>
-                        <CardCharacter
-                            name={"Akihiko Sanada"}
-                            persona={"Polydeuces"}
-                            imageCharacter={require('../../../../assets/Akihiko-Sanada.png')}
-                        />
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => setModalVisible(true)}
-                                      style={{width: '100%', marginVertical: 10}}>
-                        <CardCharacter
-                            name={"Mitsuru Kirijo"}
-                            persona={"Penthesilea"}
-                            imageCharacter={require('../../../../assets/Mitsuru-Kirijo.png')}
-                        />
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => setModalVisible(true)}
-                                      style={{width: '100%', marginVertical: 10}}>
-                        <CardCharacter
-                            name={"Fuuka Yamagishi"}
-                            persona={"Lucia"}
-                            imageCharacter={require('../../../../assets/Fuuka.png')}
-                        />
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => setModalVisible(true)}
-                                      style={{width: '100%', marginVertical: 10}}>
-                        <CardCharacter
-                            name={"Aigis"}
-                            persona={"Palladion"}
-                            imageCharacter={require('../../../../assets/Aigis-Sprite.png')}
-                        />
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => setModalVisible(true)}
-                                      style={{width: '100%', marginVertical: 10}}>
-                        <CardCharacter
-                            name={"Koromaru"}
-                            persona={"Cerberus"}
-                            imageCharacter={require('../../../../assets/Koromaru.png')}
-                        />
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => setModalVisible(true)}
-                                      style={{width: '100%', marginVertical: 10}}>
-                        <CardCharacter
-                            name={"Ken Amada"}
-                            persona={"Nemesis"}
-                            imageCharacter={require('../../../../assets/Ken-Amada.png')}
-                        />
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => setModalVisible(true)}
-                                      style={{width: '100%', marginVertical: 10}}>
-                        <CardCharacter
-                            name={"Shinjiro Aragaki"}
-                            persona={"Castor"}
-                            imageCharacter={require('../../../../assets/Shinjiro-Aragaki.png')}
-                        />
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => setModalVisible(true)}
-                                      style={{width: '100%', marginVertical: 10}}>
-                        <CardCharacter
-                            name={"Metis"}
-                            persona={"Psyche"}
-                            imageCharacter={require('../../../../assets/Metis.png')}
-                        />
-                    </TouchableOpacity>
-                </ScrollView>
+
+                <FlatList
+                    data={[...characters].sort((a, b) => a.id - b.id).slice(0, 10)}
+                    renderItem={({ item }) => (
+                        <TouchableOpacity
+                            style={{ marginBottom: 30 }}
+                            onPress={() => openCharacterModal(item)}
+                        >
+                            <CardCharacter
+                                name={item.name}
+                                persona={item.persona ?? "Unknown"}
+                                imageCharacter={{ uri: `http://192.168.1.173:8000${item.image}` }}
+                            />
+                        </TouchableOpacity>
+                    )}
+                    keyExtractor={(item) => item.id.toString()}
+                    style={[styles.containerCardView, { maxHeight: height * 0.525 }]}
+                    initialNumToRender={10}
+                    showsVerticalScrollIndicator={false}
+                    ListHeaderComponent={
+                        <TouchableOpacity
+                            onPress={() => navigation.navigate('DetailMainCharacter')}
+                            style={{ width: '100%', marginBottom: 30 }}
+                        >
+                            <CardCharacter
+                                name={"Makoto Yuki"}
+                                persona={"Orpheus"}
+                                imageCharacter={require('../../../../assets/yuki2.png')}
+                            />
+                        </TouchableOpacity>
+                    }
+                    ListFooterComponent={
+                        <Text style={{ textAlign: 'center', padding: 10 }}>There's no more characters.</Text>
+                    }
+                />
+
             </View>
-            <ModalCharacter image={require('../../../../assets/Yukari-Takeba.png')} descriptionCharacter={"Yukari Takeba is a strong-willed SEES member in Persona 3 Reload. She uses the Persona Io, specializing in wind magic and healing. Though reserved at first, she cares deeply for her friends and struggles with her father's past."} modalVisible={modalVisible} setModalVisible={setModalVisible}/>
+
+            {selectedCharacter && (
+                <ModalCharacter
+                    modalVisible={modalVisible}
+                    setModalVisible={setModalVisible}
+                    name={selectedCharacter.name}
+                    image={{ uri: `http://192.168.1.173:8000${selectedCharacter.fullImage}` }}
+                    descriptionCharacter={selectedCharacter.description}
+                />
+            )}
         </View>
-    )
-}
+    );
+};
 
 export default Home;
