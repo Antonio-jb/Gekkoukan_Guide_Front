@@ -7,12 +7,12 @@ import {AppColors, AppFonts} from "../../theme/AppTheme";
 interface ModalSagaProps {
     modalVisible: boolean;
     setModalVisible: Dispatch<SetStateAction<boolean>>;
-    arcana: string;
-    imageArcana: any;
-    descriptionArcana: string;
+    name: string;
+    image: any;
+    description: string;
 }
 
-export const ModalArcana = ({ modalVisible, setModalVisible, arcana, imageArcana, descriptionArcana }: ModalSagaProps) => {
+export const ModalArcana = ({ modalVisible, setModalVisible, name, image, description }: ModalSagaProps) => {
     return (
         <SafeAreaProvider>
             <SafeAreaView style={styles.centeredView}>
@@ -25,10 +25,10 @@ export const ModalArcana = ({ modalVisible, setModalVisible, arcana, imageArcana
                     <View style={styles.centeredView}>
                         <View style={styles.modalView}>
                             <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around'}}>
-                                <Text style={styles.titleText}>{arcana}</Text>
-                                <Image source={imageArcana} style={styles.imageArcana}/>
+                                <Text style={styles.titleText}>{name}</Text>
+                                <Image source={image} style={styles.imageArcana}/>
                             </View>
-                            <Text style={styles.modalText}>{descriptionArcana}</Text>
+                            <Text style={styles.modalText}>{description}</Text>
                             <TouchableOpacity onPress={() => {}}>
                                 <Text style={styles.textButton}>See more Personas from this arcana</Text>
                             </TouchableOpacity>

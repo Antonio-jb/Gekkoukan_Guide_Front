@@ -6,16 +6,23 @@ interface Props{
     name: string,
     persona: string,
     imageCharacter: any,
+    isDLC?: boolean;
 }
 
-export const CardCharacter = ({name, persona, imageCharacter}: Props) => {
+export const CardCharacter = ({name, persona, imageCharacter, isDLC}: Props) => {
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, isDLC && styles.dlcCard]}>
             <View style={styles.containerInfo}>
-                <Text style={styles.nameCharacter}>{name}</Text>
+                <Text style={styles.nameCharacter}>
+                    {isDLC ? '🔒 Content' : name}
+                </Text>
                 <View style={styles.containerPersonaInfo}>
-                    <Image source={require('../../../../assets/personaicon.png')} style={styles.personaIcon}/>
-                    <Text style={styles.textPersona}>Persona: {persona}</Text>
+                    {!isDLC && (
+                        <Image source={require('../../../../assets/personaicon.png')} style={styles.personaIcon}/>
+                    )}
+                    <Text style={styles.textPersona}>
+                        {isDLC ? '⚠️ Spoiler' : 'Persona: ' + persona}
+                    </Text>
                 </View>
                 <Text style={styles.textCharacter}>“I am thou, thou art I...”</Text>
             </View>
@@ -75,5 +82,10 @@ const styles = StyleSheet.create({
         width: 128,
         height: 128,
         resizeMode: 'contain',
+    },
+    dlcCard: {
+        opacity: 0.5,
+        borderColor: 'red',
+        borderWidth: 2,
     },
 })
