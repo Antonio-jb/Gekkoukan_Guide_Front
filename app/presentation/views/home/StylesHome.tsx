@@ -38,5 +38,9 @@ export const styles = StyleSheet.create({
         color: AppColors.textColor,
         fontSize: 18,
         marginBottom: 8
-    }
+    },
+    containerCardView: {
+        width: "100%",
+        maxHeight: 400
+    },
 })
