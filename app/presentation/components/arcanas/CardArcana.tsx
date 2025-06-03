@@ -2,21 +2,25 @@ import React from 'react';
 import {StyleSheet, View, Text, Image} from "react-native";
 import {AppColors, AppFonts} from "../../theme/AppTheme";
 
-interface Props{
-    name: string,
-    imageArcana: any,
+interface Props {
+    name: string;
+    imageArcana: any;
+    isSpoiler?: boolean;
 }
 
-export const CardArcana = ({name, imageArcana}: Props) => {
+export const CardArcana = ({ name, imageArcana, isSpoiler }: Props) => {
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, isSpoiler && styles.spoilerCard]}>
             <View style={styles.containerInfo}>
-                <Text style={styles.nameCharacter}>{name}</Text>
+                <Text style={styles.nameArcana}>
+                    {isSpoiler ? '⚠️ Spoiler' : name}
+                </Text>
             </View>
-            <Image source={imageArcana} style={styles.imageCharacter}/>
+            <Image source={imageArcana} style={styles.imageArcana} />
         </View>
-    )
-}
+    );
+};
+
 
 const styles = StyleSheet.create({
     container: {
@@ -41,7 +45,7 @@ const styles = StyleSheet.create({
         resizeMode: 'cover',
         marginRight: 5
     },
-    nameCharacter:{
+    nameArcana:{
         fontFamily: AppFonts.semiBold,
         color: AppColors.textColor,
         fontSize: 15,
@@ -55,14 +59,19 @@ const styles = StyleSheet.create({
         color: AppColors.textColor,
         fontSize: 14,
     },
-    textCharacter:{
+    textArcana:{
         fontFamily: AppFonts.regular,
         color: AppColors.textColor,
         fontSize: 12,
     },
-    imageCharacter: {
+    imageArcana: {
         width: 100,
         height: 100,
         resizeMode: 'contain',
+    },
+    spoilerCard: {
+        opacity: 0.5,
+        borderColor: 'red',
+        borderWidth: 2,
     },
 })

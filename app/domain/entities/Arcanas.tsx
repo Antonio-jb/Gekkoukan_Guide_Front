@@ -1,7 +1,7 @@
-export interface ArcanasInterface{
+export interface ArcanaInterface {
     id: number;
     name: string;
-    image: string;
+    image: any;
     description: string;
-    slug: string;
+    slug?: string;
 }

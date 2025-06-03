@@ -1,4 +1,3 @@
-// useCharacterViewModel.ts
 import { useEffect, useState } from "react";
 import { CharacterInterface } from "../../../domain/entities/Characters";
 import { GetAllCharactersUseCase } from "../../../domain/useCases/character/GetAllCharacters";

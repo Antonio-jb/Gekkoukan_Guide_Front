@@ -1,12 +1,28 @@
-import React, {useState} from 'react';
-import {Text, View, Image, TouchableOpacity} from "react-native";
+import React, {useEffect, useState} from 'react';
+import {Text, View, Image, TouchableOpacity, useWindowDimensions, FlatList} from "react-native";
 import {PropsStackNavigation} from "../../interfaces/StackNav";
 import {styles} from "./StylesArcanas";
 import {CardArcana} from "../../components/arcanas/CardArcana";
 import {ModalArcana} from "../../components/modal/ModalArcana";
+import {ArcanaInterface} from "../../../domain/entities/Arcanas";
+import {ArcanaViewModel} from "./ViewModel";
 
 const ArcanasView = ({navigation}: PropsStackNavigation) => {
     const [modalVisible, setModalVisible] = useState(false);
+    const [selectedArcana, setSelectedArcana] = useState<ArcanaInterface | null>(null);
+    const { arcanas, getArcanas } = ArcanaViewModel();
+    const { height } = useWindowDimensions();
+    const slicedArcanas = [...arcanas].sort((a, b) => a.id - b.id).slice(0, 23);
+    const lastArcanaId = slicedArcanas[slicedArcanas.length - 1]?.id;
+
+    const openArcanaModal = (arcana: ArcanaInterface) => {
+        setSelectedArcana(arcana);
+        setModalVisible(true);
+    };
+
+    useEffect(() => {
+        getArcanas();
+    }, []);
 
     return (
         <View style={styles.container}>
@@ -21,11 +37,44 @@ const ArcanasView = ({navigation}: PropsStackNavigation) => {
                 <Text style={styles.textBosses}>See all the story bosses</Text>
             </TouchableOpacity>
             <View style={styles.containerArcanas}>
-                <TouchableOpacity onPress={() => setModalVisible(true)}>
-                    <CardArcana name={"Magician"} imageArcana={require('../../../../assets/arcana.png')}/>
-                </TouchableOpacity>
+                <FlatList
+                    data={slicedArcanas}
+                    renderItem={({ item }) => {
+                        const isSpoiler = item.id === lastArcanaId;
+
+                        return (
+                            <TouchableOpacity
+                                style={{ marginBottom: 20 }}
+                                onPress={() => openArcanaModal(item)}
+                            >
+                                <CardArcana
+                                    name={item.name}
+                                    imageArcana={{ uri: `http://192.168.1.173:8000${item.image}` }}
+                                    isSpoiler={isSpoiler}
+                                />
+                            </TouchableOpacity>
+                        );
+                    }}
+                    keyExtractor={(item) => item.id.toString()}
+                    style={[styles.containerCardView, { maxHeight: height * 0.805 }]}
+                    initialNumToRender={10}
+                    showsVerticalScrollIndicator={false}
+                    ListFooterComponent={
+                        <Text style={{ textAlign: 'center', padding: 10 }}>There's no more arcanas.</Text>
+                    }
+                />
+
             </View>
-            <ModalArcana arcana={"Magician"} descriptionArcana={"Associated with action, initiative, and intellect. Often linked to energetic or curious characters."} imageArcana={require('../../../../assets/arcana.png')} modalVisible={modalVisible} setModalVisible={setModalVisible}/>
+
+            {selectedArcana && (
+                <ModalArcana
+                    modalVisible={modalVisible}
+                    setModalVisible={setModalVisible}
+                    name={selectedArcana.name}
+                    image={{ uri: `http://192.168.1.173:8000${selectedArcana.image}` }}
+                    description={selectedArcana.description}
+                />
+            )}
         </View>
     )
 }

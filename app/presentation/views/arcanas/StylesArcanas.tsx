@@ -37,5 +37,9 @@ export const styles = StyleSheet.create({
     containerArcanas:{
         marginVertical: 35,
         gap: 25
-    }
+    },
+    containerCardView: {
+        width: "100%",
+        maxHeight: 400
+    },
 })

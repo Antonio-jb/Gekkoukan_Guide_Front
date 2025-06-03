@@ -13,6 +13,8 @@ const Home = ({ navigation }: PropsStackNavigation) => {
     const [selectedCharacter, setSelectedCharacter] = useState<CharacterInterface | null>(null);
     const { characters, getCharacters } = useCharacterViewModel();
     const { height } = useWindowDimensions();
+    const slicedCharacter = [...characters].sort((a, b) => a.id - b.id).slice(0, 10);
+    const lastCharacterId = slicedCharacter[slicedCharacter.length - 1]?.id;
 
     const openCharacterModal = (character: CharacterInterface) => {
         setSelectedCharacter(character);
@@ -41,8 +43,12 @@ const Home = ({ navigation }: PropsStackNavigation) => {
                 <Text style={styles.textCharacters}>Main characters</Text>
 
                 <FlatList
-                    data={[...characters].sort((a, b) => a.id - b.id).slice(0, 10)}
-                    renderItem={({ item }) => (
+                    data={slicedCharacter}
+                    renderItem={({ item }) => {
+                        const isDLC = item.id === lastCharacterId;
+
+                        return (
+
                         <TouchableOpacity
                             style={{ marginBottom: 30 }}
                             onPress={() => openCharacterModal(item)}
@@ -50,10 +56,12 @@ const Home = ({ navigation }: PropsStackNavigation) => {
                             <CardCharacter
                                 name={item.name}
                                 persona={item.persona ?? "Unknown"}
-                                imageCharacter={{ uri: `http://10.0.2.2:8000${item.image}` }}
+                                imageCharacter={{ uri: `http://192.168.1.173:8000${item.image}` }}
+                                isDLC={isDLC}
                             />
                         </TouchableOpacity>
-                    )}
+                    )
+                    }}
                     keyExtractor={(item) => item.id.toString()}
                     style={[styles.containerCardView, { maxHeight: height * 0.525 }]}
                     initialNumToRender={10}
@@ -82,7 +90,7 @@ const Home = ({ navigation }: PropsStackNavigation) => {
                     modalVisible={modalVisible}
                     setModalVisible={setModalVisible}
                     name={selectedCharacter.name}
-                    image={{ uri: `http://10.0.2.2:8000${selectedCharacter.fullImage}` }}
+                    image={{ uri: `http://192.168.1.173:8000${selectedCharacter.fullImage}` }}
                     descriptionCharacter={selectedCharacter.description}
                 />
             )}
