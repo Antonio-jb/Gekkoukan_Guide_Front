@@ -17,8 +17,8 @@ export interface SocialLinkInterface {
     id: number;
     name: string;
     description: string;
-    image: string;
-    image_body: string | null;
+    image: any;
+    image_body: any | null;
     arcana: ArcanaInterface[];
     slug: string;
     ranks: Rank[];

@@ -56,7 +56,7 @@ const Home = ({ navigation }: PropsStackNavigation) => {
                             <CardCharacter
                                 name={item.name}
                                 persona={item.persona ?? "Unknown"}
-                                imageCharacter={{ uri: `http://10.0.2.2:8000${item.image}` }}
+                                imageCharacter={{ uri: `http://192.168.1.173:8000/${item.image}` }}
                                 isDLC={isDLC}
                             />
                         </TouchableOpacity>
@@ -90,7 +90,7 @@ const Home = ({ navigation }: PropsStackNavigation) => {
                     modalVisible={modalVisible}
                     setModalVisible={setModalVisible}
                     name={selectedCharacter.name}
-                    image={{ uri: `http://10.0.2.2:8000${selectedCharacter.fullImage}` }}
+                    image={{ uri: `http://192.168.1.173:8000/${selectedCharacter.fullImage}` }}
                     descriptionCharacter={selectedCharacter.description}
                 />
             )}

@@ -5,6 +5,8 @@ import { CardPersona } from "../../components/persona/CardPersona";
 import { PersonasByArcanaViewModel } from "./PersonasByArcanaViewModel";
 import { PropsStackNavigation } from "../../interfaces/StackNav";
 import { styles } from "./StylesArcanas";
+import {RenderPersonas} from "../personas/RenderPersonas";
+import {PersonasInterface} from "../../../domain/entities/Personas";
 
 type PersonasByArcanaRouteParams = {
     PersonasByArcanaView: {
@@ -33,15 +35,8 @@ export const PersonasByArcanaView = ({ navigation }: PropsStackNavigation) => {
                 <FlatList
                     data={personas}
                     keyExtractor={(item) => item.id.toString()}
-                    renderItem={({ item }) => (
-
-                        <View style={{ marginBottom: 30 }}>
-                        <CardPersona
-                            name={item.name}
-                            arcana={item.arcana}
-                            imagePersona={{uri: item.image }}
-                        />
-                        </View>
+                    renderItem={({item}: {item: PersonasInterface}) => (
+                        <RenderPersonas item={item} navigation={navigation}/>
                     )}
                     ListEmptyComponent={<Text style={{ textAlign: 'center', padding: 10, color: "white" }}>No personas found for this Arcana.</Text>}
                 />

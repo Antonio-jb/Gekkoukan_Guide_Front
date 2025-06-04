@@ -40,7 +40,7 @@ const DetailSocialLink = () => {
 
             <View style={styles.containerInfoSocialLink}>
                 {socialLinks.image_body && (
-                    <Image source={{ uri: `http://10.0.2.2:8000${socialLinks.image_body}` }} style={styles.imageSocialLink} />
+                    <Image source={{ uri: `http://192.168.1.173:8000/${socialLinks.image_body}` }} style={styles.imageSocialLink} />
                 )}
                 <Text style={styles.descriptionSocialLink}>{socialLinks.description}</Text>
             </View>

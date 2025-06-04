@@ -14,7 +14,8 @@ export const RenderSocialLinks = ({item, navigation}: Props) => {
             <CardSocialLink
                 name={item.name}
                 arcana={item.arcana}
-                imageSocialLink={{uri: `http://10.0.2.2:8000${item.image}`}}/>
+                imageSocialLink={{ uri: `http://192.168.1.173:8000/${item.image}` }}>
+            </CardSocialLink>
         </TouchableOpacity>
     )
 }
