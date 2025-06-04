@@ -1,4 +1,4 @@
-import {ArcanasInterface} from "./Arcanas";
+import {ArcanaInterface} from "./Arcanas";
 
 export interface RankOption {
     id: number;
@@ -19,7 +19,7 @@ export interface SocialLinkInterface {
     description: string;
     image: string;
     image_body: string | null;
-    arcana: ArcanasInterface[];
+    arcana: ArcanaInterface[];
     slug: string;
     ranks: Rank[];
 }
