@@ -1,22 +1,24 @@
 import React from 'react';
-import {Alert, Image, Modal, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import { Alert, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 import { Dispatch, SetStateAction } from 'react';
-import {AppColors, AppFonts} from "../../theme/AppTheme";
+import { AppColors, AppFonts } from "../../theme/AppTheme";
+
+interface Section {
+    id: number;
+    floor_start: number | null;
+    floor_end: number | null;
+    personas: string[];
+}
 
 interface ModalTartarusProps {
     modalVisible: boolean;
     setModalVisible: Dispatch<SetStateAction<boolean>>;
     title: string;
-    sectionTitle: string;
-    personas: string;
-    sectionTitle2?: string;
-    personas2?: string;
+    sections: Section[];
 }
 
-export const ModalTartarus = ({
-                                  modalVisible, setModalVisible,
-                                  title, sectionTitle, personas, sectionTitle2, personas2}: ModalTartarusProps) => {
+export const ModalTartarus = ({modalVisible, setModalVisible, title, sections}: ModalTartarusProps) => {
     return (
         <SafeAreaProvider>
             <SafeAreaView style={styles.centeredView}>
@@ -25,25 +27,30 @@ export const ModalTartarus = ({
                     transparent={true}
                     visible={modalVisible}
                     onRequestClose={() => setModalVisible(false)}
-                    >
+                >
                     <View style={styles.centeredView}>
                         <View style={styles.modalView}>
-                            <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around'}}>
-                                <Text style={styles.textTilte}>{title}</Text>
-                            </View>
-                            <View style={{flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'flex-start'}}>
-                                <Text style={styles.sectionTitle}>{sectionTitle}</Text>
-                            </View>
-                            <Text style={styles.modalText}>{personas}</Text>
-                            <View style={{flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'flex-start'}}>
-                                <Text style={styles.sectionTitle}>{sectionTitle2}</Text>
-                            </View>
-                            <Text style={styles.modalText}>{personas2}</Text>
+                            <Text style={styles.textTitle}>{title}</Text>
+
+                            {sections.map((section, index) => (
+                                <View key={section.id}>
+                                    <Text style={styles.sectionTitle}>
+                                        {section.floor_start !== null && section.floor_end !== null
+                                            ? `Floors ${section.floor_start} - ${section.floor_end}`
+                                            : 'No assigned floors'}
+                                    </Text>
+                                    <Text style={styles.modalText}>
+                                        {section.personas.join(', ')}
+                                    </Text>
+                                </View>
+                            ))}
                             <TouchableOpacity
-                                style={[styles.button, styles.buttonClose]}
-                                onPress={() => setModalVisible(!modalVisible)}>
-                                <Text style={styles.buttonClose}>X</Text>
+                                style={styles.buttonClose}
+                                onPress={() => setModalVisible(false)}
+                            >
+                                <Text style={styles.buttonText}>X</Text>
                             </TouchableOpacity>
+
                         </View>
                     </View>
                 </Modal>
@@ -73,36 +80,36 @@ const styles = StyleSheet.create({
         shadowRadius: 4,
         elevation: 5,
     },
-    button: {
+    buttonClose: {
+        position: 'absolute',
+        top: 10,
+        right: 10,
         padding: 10,
     },
-    buttonClose: {
+    buttonText: {
         color: AppColors.textColor,
-        fontWeight: 'bold',
-        fontSize: 17,
-        position: 'absolute',
-        right: 10,
-        top: 10,
+        fontFamily: AppFonts.bold,
+        fontSize: 15,
     },
-    textTilte: {
+    textTitle: {
         color: AppColors.textColor,
-        fontWeight: 'bold',
+        fontFamily: AppFonts.bold,
         fontSize: 17,
         textDecorationLine: 'underline',
+        textAlign: 'center',
+        marginBottom: 10
     },
     modalText: {
         fontSize: 14,
         fontFamily: AppFonts.regular,
         color: AppColors.textColor,
-        marginTop: 20
+        marginTop: 10
     },
     sectionTitle: {
-        fontSize: 17,
-        fontFamily: AppFonts.bold,
-        marginBottom: 4,
+        fontSize: 16,
+        fontFamily: AppFonts.semiBold,
         marginTop: 20,
         color: AppColors.textColor,
         textDecorationLine: 'underline',
     },
 });
-
