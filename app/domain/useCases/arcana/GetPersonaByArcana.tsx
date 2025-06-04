@@ -2,6 +2,6 @@ import { ArcanaRepositoryImpl } from "../../../data/repositories/ArcanaRepositor
 
 const repository = new ArcanaRepositoryImpl();
 
-export const GetArcanaUseCase = async (id: number) => {
-    return await repository.get_Arcana(id);
+export const GetPersonaByArcanaUseCase = async (id: number) => {
+    return await repository.get_Persona_By_Arcana(id);
 };

@@ -5,10 +5,11 @@ import {AppColors, AppFonts} from "../../theme/AppTheme";
 interface Props{
     name: string,
     arcana: string,
+    arcanaRel?: any,
     imagePersona: any,
 }
 
-export const CardPersona = ({name, arcana, imagePersona}: Props) => {
+export const CardPersona = ({name, arcana, arcanaRel, imagePersona}: Props) => {
     return (
         <View style={styles.container}>
             <View style={styles.containerInfo}>

@@ -3,16 +3,20 @@ import {Alert, Image, Modal, StyleSheet, Text, TouchableOpacity, View} from 'rea
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 import { Dispatch, SetStateAction } from 'react';
 import {AppColors, AppFonts} from "../../theme/AppTheme";
+import {PropsStackNavigation} from "../../interfaces/StackNav";
 
-interface ModalSagaProps {
+interface ModalArcanaProps {
     modalVisible: boolean;
     setModalVisible: Dispatch<SetStateAction<boolean>>;
     name: string;
     image: any;
     description: string;
+    arcanaId: number;
+    navigation: any;
 }
 
-export const ModalArcana = ({ modalVisible, setModalVisible, name, image, description }: ModalSagaProps) => {
+export const ModalArcana = ({modalVisible, setModalVisible, name, image, description, arcanaId, navigation,
+                            }: ModalArcanaProps) => {
     return (
         <SafeAreaProvider>
             <SafeAreaView style={styles.centeredView}>
@@ -29,7 +33,10 @@ export const ModalArcana = ({ modalVisible, setModalVisible, name, image, descri
                                 <Image source={image} style={styles.imageArcana}/>
                             </View>
                             <Text style={styles.modalText}>{description}</Text>
-                            <TouchableOpacity onPress={() => {}}>
+                            <TouchableOpacity onPress={() => {
+                                setModalVisible(false);
+                                navigation.navigate('PersonasByArcanaView', { arcanaId });
+                            }}>
                                 <Text style={styles.textButton}>See more Personas from this arcana</Text>
                             </TouchableOpacity>
                             <TouchableOpacity

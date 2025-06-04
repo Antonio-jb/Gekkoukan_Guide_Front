@@ -73,7 +73,10 @@ const ArcanasView = ({navigation}: PropsStackNavigation) => {
                     name={selectedArcana.name}
                     image={{ uri: `http://192.168.1.173:8000${selectedArcana.image}` }}
                     description={selectedArcana.description}
+                    arcanaId={selectedArcana.id}
+                    navigation={navigation}
                 />
+
             )}
         </View>
     )

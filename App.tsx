@@ -14,6 +14,7 @@ import DetailSocialLink from "./app/presentation/views/detail-social-links/Detai
 import StoryBossesView from "./app/presentation/views/story-bosses/StoryBossesView";
 import DetailMainCharacter from "./app/presentation/views/detail-main-character/DetailMainCharacter";
 import TartarusView from "./app/presentation/views/tartarus/TartarusView";
+import {PersonasByArcanaView} from "./app/presentation/views/arcanas/PersonasByArcanaView";
 
 const Stack = createNativeStackNavigator<RootStackParamlist>();
 
@@ -27,6 +28,7 @@ export type RootStackParamlist = {
   Tartarus: undefined,
   DetailMainCharacter: undefined,
   StoryBossesView: undefined,
+  PersonasByArcanaView: { arcanaId: number },
 }
 
 export default function App() {
@@ -54,6 +56,7 @@ export default function App() {
             <Stack.Screen name={"DetailSocialLink"} component={DetailSocialLink} />
             <Stack.Screen name={"Tartarus"} component={TartarusView} />
             <Stack.Screen name={"StoryBossesView"} component={StoryBossesView} />
+            <Stack.Screen name={"PersonasByArcanaView"} component={PersonasByArcanaView} />
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaProvider>
