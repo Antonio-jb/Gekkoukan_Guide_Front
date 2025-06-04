@@ -1,38 +1,16 @@
 import React from 'react';
-import {useWindowDimensions, View, StyleSheet, Text} from "react-native";
+import {useWindowDimensions, View, StyleSheet} from "react-native";
 import {TabBar, TabView} from "react-native-tab-view";
-import {AppColors, AppFonts} from "../../../theme/AppTheme";
+import {AppColors} from "../../../theme/AppTheme";
 import {StatsPersona} from "./StatsPersona";
 import {ResistancesPersona} from "./ResistancesPersona";
+import {PersonasInterface} from "../../../../domain/entities/Personas";
 
-
-const FirstRoute = () => {
-    return (
-        <StatsPersona
-            arcana={"Magician"}
-            level={8}
-            strength={5}
-            magic={9}
-            endurance={8}
-            agility={6}
-            luck={4}
-        />
-    )
+interface Props {
+    persona: PersonasInterface;
 }
 
-const SecondRoute= () => {
-    return (
-        <ResistancesPersona
-            weak={"Fire"}
-            resists={5}
-            reflects={9}
-            absorbs={8}
-            nullifies={"Ice"}
-        />
-    )
-}
-
-export default function TabViewInfo() {
+export default function TabViewInfo({ persona }: Props) {
     const layout = useWindowDimensions();
     const [index, setIndex] = React.useState(0);
     const [routes] = React.useState([
@@ -43,9 +21,27 @@ export default function TabViewInfo() {
     const renderScene = ({ route }: { route: { key: string } }) => {
         switch (route.key) {
             case 'first':
-                return <FirstRoute />;
+                return (
+                    <StatsPersona
+                        arcana={persona.arcana}
+                        level={persona.level}
+                        strength={persona.strength}
+                        magic={persona.magic}
+                        endurance={persona.endurance}
+                        agility={persona.agility}
+                        luck={persona.luck}
+                    />
+                );
             case 'second':
-                return <SecondRoute/>;
+                return (
+                    <ResistancesPersona
+                        weak={persona.weak && persona.weak.length > 0 ? persona.weak : ["None"]}
+                        resists={persona.resists && persona.resists.length > 0 ? persona.resists : ["None"]}
+                        reflects={persona.reflects && persona.reflects.length > 0 ? persona.reflects : ["None"]}
+                        absorbs={persona.absorbs && persona.absorbs.length > 0 ? persona.absorbs : ["None"]}
+                        nullifies={persona.nullifies && persona.nullifies.length > 0 ? persona.nullifies : ["None"]}
+                    />
+                );
             default:
                 return null;
         }
@@ -57,7 +53,7 @@ export default function TabViewInfo() {
             activeColor={'#FFFFFF'}
             inactiveColor={'#eaeaea'}
             style={{backgroundColor: '#131B2B'}}
-            indicatorStyle={{ backgroundColor: '#4AA8F6', height: 2}}
+            indicatorStyle={{ backgroundColor: '#4AA8F6', height: 2 }}
         />
     );
 
@@ -82,4 +78,4 @@ const styles = StyleSheet.create({
         borderRadius: 25,
         marginBottom: 20,
     },
-})
+});

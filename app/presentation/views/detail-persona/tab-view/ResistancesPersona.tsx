@@ -3,11 +3,11 @@ import { Text, View, StyleSheet } from 'react-native';
 import { AppColors, AppFonts } from "../../../theme/AppTheme";
 
 interface Props {
-    weak: string,
-    resists: number,
-    reflects: number,
-    absorbs: number,
-    nullifies: string,
+    weak: string[],
+    resists: string[],
+    reflects: string[],
+    absorbs: string[],
+    nullifies: string[],
 }
 
 export const ResistancesPersona = ({weak, resists, reflects, absorbs, nullifies}: Props) => {
