@@ -1,12 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-    Text,
-    View,
-    Image,
-    TouchableOpacity,
-    ScrollView,
-    ActivityIndicator,
-} from 'react-native';
+import {Text, View, Image, TouchableOpacity, ScrollView, ActivityIndicator,} from 'react-native';
 import { PropsStackNavigation } from '../../interfaces/StackNav';
 import { styles } from './StylesTartarusView';
 import { ModalTartarus } from '../../components/modal/ModalTartarus';
@@ -26,13 +19,7 @@ interface TartarusSection {
 }
 
 const TartarusView = ({ navigation }: PropsStackNavigation) => {
-    const {
-        tartarus, // Array de TartarusSection
-        tartarusDetail,
-        getTartarus,
-        getDetailTartarus,
-        loading,
-    } = TartarusViewModel();
+    const {tartarus, tartarusDetail, getTartarus, getDetailTartarus, loading,} = TartarusViewModel();
 
     const [modalVisible, setModalVisible] = useState(false);
 
@@ -63,7 +50,13 @@ const TartarusView = ({ navigation }: PropsStackNavigation) => {
     };
 
     const renderTartarusBlocks = () => {
-        return tartarus.map((section: TartarusSection) => (
+        const order = ['Thebel', 'Arqa', 'Yabbashah', 'Tziah', 'Harabah', 'Adamah'];
+
+        const orderedTartarus = [...tartarus].sort(
+            (a, b) => order.indexOf(a.name) - order.indexOf(b.name)
+        );
+
+        return orderedTartarus.map((section: TartarusSection) => (
             <View key={section.id}>
                 <Text style={styles.titleText}>{section.name}</Text>
                 <TouchableOpacity onPress={() => handleOpenModal(section.id)}>
@@ -84,28 +77,16 @@ const TartarusView = ({ navigation }: PropsStackNavigation) => {
             </View>
 
             <View style={styles.containerTartarus}>
-                {loading ? <ActivityIndicator size="large" color="#0000ff" /> : renderTartarusBlocks()}
+                {loading ? <ActivityIndicator size="large" color="#ffffff" /> : renderTartarusBlocks()}
             </View>
 
             {tartarusDetail && tartarusDetail.sections?.length > 0 && (
-                <>
-                    {tartarusDetail.sections.map((s, index) => (
-                        <ModalTartarus
-                            key={s.id}
-                            title={index === 0 ? tartarusDetail.name : ''}
-                            sectionTitle={
-                                s.floor_start != null && s.floor_end != null
-                                    ? `Floors ${s.floor_start} - ${s.floor_end}`
-                                    : 'Sin información de pisos'
-                            }
-                            personas={s.personas?.join(', ') ?? 'Sin Personas'}
-                            sectionTitle2={''}
-                            personas2={''}
-                            modalVisible={modalVisible}
-                            setModalVisible={setModalVisible}
-                        />
-                    ))}
-                </>
+                <ModalTartarus
+                    title={tartarusDetail.name}
+                    sections={tartarusDetail.sections}
+                    modalVisible={modalVisible}
+                    setModalVisible={setModalVisible}
+                />
             )}
         </ScrollView>
     );
