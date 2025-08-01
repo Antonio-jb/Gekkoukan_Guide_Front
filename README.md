@@ -2,7 +2,7 @@
 
 Mobile companion app for **Persona 3 Reload**, built using **React Native** and **TypeScript**.
 
-This is the **frontend** of the Gekkoukan Guide, a mobile application designed to help players explore, manage, and plan the fusion and progression of their Personas in the game.
+This is the **frontend** of the Gekkoukan Guide, a mobile application designed to help players of Persona 3 Reload explore, manage, and plan their progression in-game.
 
 ---
 
